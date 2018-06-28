@@ -6,7 +6,7 @@ let mainState = {
 
 	create : function() {
 		// set background color
-		game.state.backgroundColor = '#71c5cf';
+		game.stage.backgroundColor = 'rgb(113, 197, 207)';
 
 		// set physics system
 		game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -29,9 +29,19 @@ let mainState = {
 			this.restartGame();
 		}
 	},
+
+	jump: function() {
+		// make the bird jump
+		this.bird.body.velocity.y = -350;
+	},
+
+	restartGame: function() {
+		// restart game by reverting state to 'main'
+		game.state.start('main');
+	},
 };
 
-let game = new Phaser.game(400, 490);
+let game = new Phaser.Game(400, 490);
 
 game.state.add('main', mainState);
 
