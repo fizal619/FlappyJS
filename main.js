@@ -2,6 +2,9 @@ let mainState = {
 	preload: function() {
 		// load the bird
 		game.load.image('bird', 'assets/bird.png');
+
+		// load the pipes
+		game.load.image('pipe', 'assets/pipe.png');
 	},
 
 	create : function() {
@@ -21,6 +24,9 @@ let mainState = {
 		// set spacebar to call the jump action when pressed
 		let spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		spaceKey.onDown.add(this.jump, this);
+
+		// create empty group for pipes
+		this.pipes = game.add.group();
 	},
 
 	update: function() {
@@ -38,6 +44,22 @@ let mainState = {
 	restartGame: function() {
 		// restart game by reverting state to 'main'
 		game.state.start('main');
+	},
+
+	addOnePipe: function(x,y) {
+		// create a pipe at the given x and y
+		let pipe = game.add.sprite(x, y, 'pipe');
+
+		// add the pipe to the group created above
+		this.pipes.add(pipe);
+
+		// add physics and velocity to the pipes (velocity needed for scroll)
+		game.physics.arcade.enable(pipe);
+		pipe.body.velocity.x = -200;
+
+		// remove pipe when its not on screen
+		pipe.checkWorldBounds = true;
+		pipe.outOfBoundsKill = true;
 	},
 };
 
