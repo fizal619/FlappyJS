@@ -44,11 +44,19 @@ let mainState = {
 
 		// restart game when the bird collides with a pipe
 		game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
+
+		// make the bird rotate back to starting after a jump
+		if(this.bird.angle < 20){
+			this.bird.angle += 1;
+		}
 	},
 
 	jump: function() {
 		// make the bird jump
 		this.bird.body.velocity.y = -350;
+
+		// make an animation for the bird angling upward when jumping
+		let animation = game.add.tween(this.bird).to({angle: -20}, 100).start();
 	},
 
 	restartGame: function() {
