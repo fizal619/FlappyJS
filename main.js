@@ -34,6 +34,9 @@ let mainState = {
 		// display score
 		this.score = 0;
 		this.labelScore = game.add.text(20, 20, "0", {font: "30px Tahoma", fill: "#ffffff"});
+
+		// change rotation anchor
+		this.bird.anchor.setTo(-0.2, 0.5);
 	},
 
 	update: function() {
@@ -43,15 +46,21 @@ let mainState = {
 		}
 
 		// restart game when the bird collides with a pipe
-		game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
+		game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe, null, this);
 
 		// make the bird rotate back to starting after a jump
 		if(this.bird.angle < 20){
 			this.bird.angle += 1;
 		}
+
 	},
 
 	jump: function() {
+		// if bird is dead, don't allow to jump
+		if(this.bird.alive == false){
+			return;
+		}
+
 		// make the bird jump
 		this.bird.body.velocity.y = -350;
 
@@ -94,6 +103,20 @@ let mainState = {
 		// increase score by 1 every time a new pipe is made
 		this.score += 1;
 		this.labelScore.text = this.score;
+	},
+
+	hitPipe: function() {
+		// if the bird is already dead, do nothing
+		if(this.bird.alive == false){
+			return
+		}
+
+		// set the bird as dead, stop new pipes and stop existing pipe movement
+		this.bird.alive = false;
+		game.time.events.remove(this.timer);
+		this.pipes.forEach(function(p){
+			p.body.velocity.x = 0;
+		}, this);
 	},
 };
 
