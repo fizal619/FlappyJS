@@ -27,6 +27,13 @@ let mainState = {
 
 		// create empty group for pipes
 		this.pipes = game.add.group();
+
+		// add pipes on 1.5s timer
+		this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
+
+		// display score
+		this.score = 0;
+		this.labelScore = game.add.text(20, 20, "0", {font: "30px Tahoma", fill: "#ffffff"});
 	},
 
 	update: function() {
@@ -34,6 +41,9 @@ let mainState = {
 		if (this.bird.y < 0 || this.bird.y > 490){
 			this.restartGame();
 		}
+
+		// restart game when the bird collides with a pipe
+		game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
 	},
 
 	jump: function() {
@@ -60,6 +70,22 @@ let mainState = {
 		// remove pipe when its not on screen
 		pipe.checkWorldBounds = true;
 		pipe.outOfBoundsKill = true;
+	},
+
+	addRowOfPipes: function() {
+		// randomly choose the empty position in the pipes for the bird to fly through
+		let hole = Math.floor(Math.random() * 5) + 1;
+
+		// add the pipes with the flythrough hole
+		for(i = 0; i < 8; i++) {
+			if(i != hole && i != hole + 1) {
+				this.addOnePipe(400, i * 60 + 10);
+			}
+		}
+
+		// increase score by 1 every time a new pipe is made
+		this.score += 1;
+		this.labelScore.text = this.score;
 	},
 };
 
