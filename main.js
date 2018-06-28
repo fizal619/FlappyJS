@@ -5,6 +5,9 @@ let mainState = {
 
 		// load the pipes
 		game.load.image('pipe', 'assets/pipe.png');
+
+		// load the jump sound
+		game.load.audio('jump', 'assets/jump.wav');
 	},
 
 	create : function() {
@@ -37,6 +40,9 @@ let mainState = {
 
 		// change rotation anchor
 		this.bird.anchor.setTo(-0.2, 0.5);
+
+		// add jumpsound to game
+		this.jumpSound = game.add.audio('jump');
 	},
 
 	update: function() {
@@ -66,6 +72,9 @@ let mainState = {
 
 		// make an animation for the bird angling upward when jumping
 		let animation = game.add.tween(this.bird).to({angle: -20}, 100).start();
+
+		// play jump sound on jump
+		this.jumpSound.play();
 	},
 
 	restartGame: function() {
