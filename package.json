@@ -1,0 +1,30 @@
+{
+  "name": "flappyjs",
+  "version": "1.0.0",
+  "description": "Flappy Bird clone using Phaser 2",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmurphy2404/FlappyJS.git"
+  },
+  "keywords": [
+    "Phaser",
+    "Flappy",
+    "Game",
+    "HTML5"
+  ],
+  "author": "John Murphy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmurphy2404/FlappyJS/issues"
+  },
+  "homepage": "https://github.com/jmurphy2404/FlappyJS#readme"
+}
