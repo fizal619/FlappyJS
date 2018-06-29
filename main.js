@@ -36,6 +36,9 @@ let mainState = {
 		let spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		spaceKey.onDown.add(this.jump, this);
 
+		// set touch to jump for mobile use
+		game.input.onDown.add(this.jump, this);
+
 		// create empty group for pipes
 		this.pipes = game.add.group();
 
