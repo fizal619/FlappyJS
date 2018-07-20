@@ -11,13 +11,15 @@ let mainState = {
 	},
 
 	create : function() {
-		// if it's a mobile device, scale to show all, set sizes, and center
+		// if it's a mobile device, scale to show all, and set sizes
 		if(game.device.desktop == false){
 			game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 			game.scale.setMinMax(game.width/2, game.height/2, game.width, game.height);
-			game.scale.pageAlignHorizontally = true;
-			game.scale.pageAlignVertically = true;
 		}
+
+		// center the game
+		game.scale.pageAlignHorizontally = true;
+		game.scale.pageAlignVertically = true;
 
 		// set background color
 		game.stage.backgroundColor = 'rgb(113, 197, 207)';
